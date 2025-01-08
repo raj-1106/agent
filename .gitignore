@@ -1,0 +1,24 @@
+# Ignore environment variable file
+.env
+
+# Python bytecode files
+__pycache__/
+*.py[cod]
+
+# Virtual environment directory
+venv/
+env/
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings
+.vscode/
+
+# IDE and editor-specific files (e.g., PyCharm, Sublime, etc.)
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
