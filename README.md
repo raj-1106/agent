@@ -6,6 +6,6 @@
 ### Output
 <br>
     <p align="center">
-      <img src="Output/Output.png" height=50% width=50%>
+      <img src="Output/Output.png" height=100% width=100%>
     </p>
   <br>
