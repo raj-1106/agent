@@ -12,7 +12,7 @@ load_dotenv()
 QUILLCHECK_API_URL = "check-api.quillai.network"
 QUILLCHECK_API_KEY = os.getenv("QUILLCHECK_API_KEY")
 
-# Coinbase API details (use actual product id like 'ETH-USD')
+# Coinbase API details 
 COINBASE_API_URL = "api.coinbase.com"
 COINBASE_API_KEY = os.getenv("COINBASE_API_KEY")
 
@@ -22,33 +22,30 @@ def detect_scam(contract_address: str, blockchain: str, coinbase_token_id: str):
     Detect if a token is a scam by checking QuillCheck and Coinbase data.
     """
     try:
-        # Step 1: Fetch token data from QuillCheck API
-        # Set up the connection using http.client
+    
         conn = http.client.HTTPSConnection(QUILLCHECK_API_URL)
         
-        # Format the URL and parameters
+
         url = f"/api/v1/tokens/information/{contract_address}?chainId={blockchain}"
         
-        # Set headers including the API key for QuillCheck
         headers = {
             'Content-Type': 'application/json',
             'x-api-key': QUILLCHECK_API_KEY
         }
-        
-        # Send the GET request to QuillCheck
+    
         conn.request("GET", url, '', headers)
         res = conn.getresponse()
         data = res.read()
         
-        # Decode and load the JSON response from QuillCheck
+        
         token_data = json.loads(data.decode("utf-8"))
         
-        # Step 2: Check QuillCheck honeypot detection
+    
         honeypot = token_data.get("honeypot_detection", {}).get("is_honeypot", False)
         if honeypot:
             return {"risk_level": "High Risk", "message": "Honeypot detected!"}
         
-        # Step 3: Fetch token price data from Coinbase API
+    
         coinbase_url = f"/v2/prices/{coinbase_token_id}/spot"
         headers_coinbase = {
             'Authorization': f"Bearer {COINBASE_API_KEY}"
